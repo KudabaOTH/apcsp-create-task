@@ -17,6 +17,13 @@ def isGameOver():
     for item in combatHandler.allies:
         if(item.isConscious):
             isOver = false;
+    enemyLength = len(combatHandler.enemies);
+    numberUnconsious = 0;
+    for item in combatHandler.enemies:
+        if(not item.isConscious):
+            numberUnconsious+=1;
+    if(numberUnconsious == enemyLength):
+        isOver = true;
     return isOver;
 
 def printValues():
@@ -27,8 +34,10 @@ def printValues():
     for ally in combatHandler.enemies:
         printString += (ally.name + ": hp percent=" + str(100*ally.hp/ally.maxhp) + ", Are they conscious=" + str(ally.isConscious) + "\n")
     print(printString);
+    
 def userTurn():
     for ally in combatHandler.allies:
+        print('---------------------------------')
         if(ally.isConscious):
             printValues();
             stringInput='';

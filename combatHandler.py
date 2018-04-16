@@ -4,11 +4,11 @@ import Items
         
 true = True;
 false = False;
-
+debugList=[];
 #Format: Name, max hp, strength, resistance, accuracy, evasion, type
-Xanu = ch.character("Xanu", 200, 150, 1.2, 80, 1.1, ch.charType.attack);
+Xanu = ch.character("Xanu", 220, 175, 1.2, 90, 1.1, ch.charType.attack);
 Sepha = ch.character("Sepha", 150, 80, 1, 80, 1.7, ch.charType.healer);
-Kitzurea = ch.character("Kitzurea", 230, 125, 1.5, 75, 0.75, ch.charType.tank);
+Kitzurea = ch.character("Kitzurea", 230, 125, 1.5, 85, 0.75, ch.charType.tank);
 Xanu.aggro+=25;
 Sepha.aggro+=25;
 Kitzurea.aggro+=25;
@@ -60,21 +60,27 @@ def enemyAttack():
                     lowestPercentEnemy = 0;
                     percentOfLowestPercentEnemy = 101;
                     for newEnemy in enemies:
-                        percent = (newEnemy.hp/newEnemy.maxhp);
-                        if(percent < percentOfLowestPercentEnemy):
-                            lowestPercentEnemy = newEnemy;
-                            percentOfLowestPercentEnemy = percent;
+                        if(newEnemy.isConscious):
+                            percent = (newEnemy.hp/newEnemy.maxhp);
+                            if(percent < percentOfLowestPercentEnemy):
+                                lowestPercentEnemy = newEnemy;
+                                percentOfLowestPercentEnemy = percent;
                     enemy.attack(lowestPercentEnemy);
 
 
                 
             elif(enemy.isConscious == true):
-                values = []
+                values = [];
+                sum = 0;
                 for ally in allies:
                     if(ally.isConscious):
                         for num in range(ally.aggro):
                             values.append(ally);
-                aggroStrike = random.randrange(0,sum,1);                       #chooses random number for attack
+                            sum+=1;
+                for i in range(random.randint(1,30)):
+                    aggroStrike = random.randint(1, sum);                       #Run lots of times to see if that fixes bug of not random enough
+                debugList.append(aggroStrike);
+                print('----------------------------------------------------------------------------');
                 counter = 0;
                 index = 1;
                 enemy.attack(values[aggroStrike])
