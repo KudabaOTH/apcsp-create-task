@@ -80,7 +80,6 @@ def enemyAttack():
                 for i in range(random.randint(1,30)):
                     aggroStrike = random.randint(1, sum);                       #Run lots of times to see if that fixes bug of not random enough
                 debugList.append(aggroStrike);
-                print('----------------------------------------------------------------------------');
                 counter = 0;
                 index = 1;
                 enemy.attack(values[aggroStrike])
